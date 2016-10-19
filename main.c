@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-	int choice = -1, value, index, n, i;
+	int choice = -1, value, index, n, i, r = 0;
 	List l;
 	
 	initList(&l);
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 				break;
 			case 4:
 				do {
-					printf("Enter an index (between 0 and %i): ", getLength(l));
+					printf("Enter an index (between 0 and %i): ", getLength(l)-1);
 					scanf(" %i", &index);
 				} while (index < 0 && index > getLength(l));
 				
@@ -63,15 +63,15 @@ int main(int argc, char *argv[])
 				break;
 			case 5:
 				do {
-					printf("Choose a value to delete: ");
-					scanf("%i", &index);
-				} while (!belongs(l, index));
+					printf("Enter an index (between 0 and %i): ", getLength(l)-1);
+					scanf(" %i", &index);
+				} while (index < 0 && index > getLength(l));
 			
 				delete(&l, index);
 				break;
 			case 6:
 				do {
-					printf("Enter an index (between 0 and %i): ", getLength(l));
+					printf("Enter an index (between 0 and %i): ", getLength(l)-1);
 					scanf(" %i", &index);
 				} while (index < 0 && index > getLength(l));
 				printf("Enter a value: ");
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 				break;
 			case 7:
 				do {
-					printf("Enter an index (between 0 and %i): ", getLength(l));
+					printf("Enter an index (between 0 and %i): ", getLength(l)-1);
 					scanf(" %i", &index);
 				} while (index < 0 && index > getLength(l));
 				printf("The value at the index %i is %i.\n", index, get(l, index));
