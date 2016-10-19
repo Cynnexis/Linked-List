@@ -4,9 +4,27 @@
 #include "boolean.h"
 #include "list.h"
 
+void printMenu() {
+	printf("=== Linked List ===\n");
+	printf("1.  Enter\n");
+	printf("2.  Print\n");
+	printf("3.  Add...\n");
+	printf("4.  Add... at...\n");
+	printf("5.  Delete...\n");
+	printf("6.  Change...\n");
+	printf("7.  Get...\n");
+	printf("8.  To Array\n");
+	printf("9.  From Array\n");
+	printf("10. Sort\n");
+	printf("11. Reset\n");
+	printf("0.  Exit\n");
+}
+
 int main(int argc, char *argv[])
 {
 	int choice = -1, value, index, n, i, r = 0;
+	char c;
+	int* array;
 	List l;
 	
 	initList(&l);
@@ -14,33 +32,20 @@ int main(int argc, char *argv[])
 	while (choice != 0)
 	{
 		do {
-			printf("=== Linked List ===\n");
-			printf("1. Enter\n");
-			printf("2. Print\n");
-			printf("3. Add...\n");
-			printf("4. Add... at...\n");
-			printf("5. Delete...\n");
-			printf("6. Change...\n");
-			printf("7. Get...\n");
-			printf("8. Free\n");
-			printf("0. Exit\n");
+			printMenu();
 			scanf(" %i", &choice);
 		} while (choice < 0);
 	
 		switch (choice)
 		{
 			case 1:
-				do {
-					printf("Enter the number of element in the list: ");
-					scanf(" %i", &n);
-				} while (n <= 0);
-			
-				for (i = 1 ; i <= n ; i++)
+				printf("Enter the numbers seperated with spaces, and followed by a dot at the end:\n");
+				for (r = scanf("%d", &value) ; r != 0 ; r = scanf("%d", &value))
 				{
-					printf("Value n°%i: ", i);
-					scanf(" %i", &value);
-					add(&l, value);
+					if (r == 1)
+						add(&l, value);
 				}
+				scanf("%c", &c);
 				break;
 			case 2:
 				printList(l);
@@ -86,7 +91,30 @@ int main(int argc, char *argv[])
 				printf("The value at the index %i is %i.\n", index, get(l, index));
 				break;
 			case 8:
-				freeList(&l);
+				array = toArray(l);
+				printf("Array created with success: ");
+				for (i = 0 ; i < getLength(l) ; i++)
+					printf("%i ", array[i]);
+				printf("\n");
+				break;
+			case 9:
+				n = 5;
+				printf("Enter 5 numbers:\n");
+				for (i = 0 ; i < n ; i++)
+				{
+					printf("Value n°%i: ", i);
+					scanf("%i", &value);
+					array[i] = value;
+				}
+				fromArray(&l, array, n);
+				break;
+			case 10:
+				printf("Sorting...\n");
+				sort(&l);
+				printf("Sorted.\n");
+				break;
+			case 11:
+				reset(&l);
 				break;
 			default:
 				choice = 0;

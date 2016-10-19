@@ -21,8 +21,12 @@ int get(List l, int index);
 void add(List* l, int value);
 bool addAt(List* l, int index, int value);
 bool delete(List* l, int index);
+bool reset(List* l);
 bool set(List* l, int index, int value);
 bool belongs(List l, int value);
+int* toArray(List l);
+void fromArray(List* l, int* array, int n);
+void sort(List *l);
 void printList(List l);
 void freeList(List* l);
 

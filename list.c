@@ -37,7 +37,7 @@ Cell * getCell(List l, int index) {
 	Cell* cell = l.head;
 	int i;
 	
-	for (i = 0 ; i < index || cell != NULL ; i++)
+	for (i = 0 ; i < index && cell != NULL ; i++)
 		cell = cell->next;
 	
 	if (cell == NULL)
@@ -50,7 +50,7 @@ int get(List l, int index) {
 	int i;
 	Cell* cell = l.head;
 	
-	for (i = 0 ; i < index || cell != NULL ; i++)
+	for (i = 0 ; i < index && cell != NULL ; i++)
 		cell = cell->next;
 	
 	if (cell == NULL)
@@ -123,6 +123,11 @@ bool delete(List* l, int index) {
 	return true;
 }
 
+bool reset(List* l) {
+	freeList(l);
+	initList(l);
+}
+
 bool set(List* l, int index, int value) {
 	int i;
 	Cell* cell = l->head;
@@ -135,7 +140,6 @@ bool set(List* l, int index, int value) {
 	
 	cell->value = value;
 	return true;
-	
 }
 
 bool belongs(List l, int value) {
@@ -152,6 +156,55 @@ bool belongs(List l, int value) {
 	}
 	
 	return result;
+}
+
+int* toArray(List l) {
+	int i;
+	Cell* cell = l.head;
+	int* array;
+	
+	if (cell == NULL)
+		array = NULL;
+	else
+	{
+		array = malloc(sizeof(int) * getLength(l));
+		
+		for (i = 0 ; cell != NULL ; i++)
+		{
+			array[i] = cell->value;
+			cell = cell->next;
+		}
+	}
+	return array;
+}
+
+void fromArray(List* l, int* array, int length) {
+	int i;
+	
+	reset(l);
+	
+	for (i = 0 ; i < length ; i++)
+		add(l, array[i]);
+}
+
+// WARNING: Insertion Sort: There is probably a better way to sort a linked list
+void sort(List *l) {
+	int i, j, ind_min, length = getLength(*l), tmp;
+	
+	for (i = 0 ; i < length-1 ; i++)
+	{
+		ind_min = i;
+		for (j = i+1 ; j < length ; j++)
+			if (get(*l, j) < get(*l, ind_min))
+				ind_min = j;
+		
+		if (i != ind_min)
+		{
+			tmp = get(*l, ind_min);
+			set(l, ind_min, get(*l, i));
+			set(l, i, tmp);
+		}
+	}
 }
 
 void printList(List l) {
