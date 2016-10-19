@@ -20,7 +20,7 @@ Cell* getCell(List l, int index);
 int get(List l, int index);
 void add(List* l, int value);
 bool addAt(List* l, int index, int value);
-bool delete(List* l, int value);
+bool delete(List* l, int index);
 bool set(List* l, int index, int value);
 bool belongs(List l, int value);
 void printList(List l);
