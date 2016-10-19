@@ -94,23 +94,31 @@ bool addAt(List* l, int index, int value) {
 	return true;
 }
 
-bool delete(List* l, int value) {
+bool delete(List* l, int index) {
+	int i;
 	Cell* cell1 = l->head;
 	Cell* cell2 = NULL;
 	
 	if (cell1 == NULL)
 		return false;
 	
-	while (cell1->value != value)
+	if (index == 0)
+	{
+		l->head = l->head->next;
+		return true;
+	}
+	
+	for (i = 0 ; i < index && cell1 != NULL ; i++)
 	{
 		cell2 = cell1;
 		cell1 = cell1->next;
 	}
 	
-	if (cell2 == NULL)
-		l->head = cell1->next;
-	else
-		cell2->next = cell1->next;
+	if (cell1 == NULL)
+		return false;
+	
+	
+	cell2->next = cell1->next;
 	
 	return true;
 }
@@ -178,4 +186,3 @@ void freeList(List* l) {
 	}
 	l->head = NULL;
 }
-
