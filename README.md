@@ -6,7 +6,7 @@ Ce programme est centré sur les Liste Chaînée, et réalise des opération sim
 Ce code source est sous licence GNU (voir `LICENCE`).
 
 ### Note ###
-Le `Makefile` est fait pour compiler sous Linux (comme sur Turing par exemple). Il comporte des commandes de Linux comme `ar`, utilisé pour crée une librairie statique en C exclusive à Linux.
+Le `Makefile` est fait pour compiler sous Linux (comme sur Turing par exemple). Il comporte des commandes de Linux comme `ar`, utilisé pour créer une librairie statique en C exclusive à Linux.
 
 ## Description ##
 * `list.h`: Liste des prototypes des fonctions sur les listes chaînées, et définition du type `Cell` et `List`.
