@@ -1,8 +1,8 @@
-# Linked-List #
+# Linked List #
 Linked List operations
 
 ## Contenu ##
-Ce programme est centré sur les Liste Chaînée, et réalise des opération simple dessus. Pour voire les fonctions implémenté, voir le fichier `list.h`. Certaines fonctions ne sont pas complétement tester (je les ai codés à 23h, donc voilà...), reportés moi les bug que vous trouvez.
+Ce programme est centré sur les Liste Chaînée, et réalise des opération simple dessus. Pour voire les fonctions implémenté, voir le fichier `list.h`. Certaines fonctions ne sont pas complétement tester, reportez moi les bug que vous trouvez.
 Ce code source est sous licence GNU (voir `LICENCE`).
 
 ## Description ##
@@ -13,4 +13,3 @@ Ce code source est sous licence GNU (voir `LICENCE`).
 * `example`: Executable Linux (compiler depuis Turing) de `main.c`.
 * `README.MD`: Ce fichier.
 * `LICENCE`: Fichier texte sur la licence du code source.
-
