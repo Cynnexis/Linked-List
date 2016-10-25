@@ -4,11 +4,28 @@
 #include "boolean.h"
 #include "list.h"
 
-void initList(List* l) {
+/** CONSTRUCTOR **/
+void list_new(List* l) {
 	l->head = NULL;
 }
 
-int getLength(List l) {
+/** DESTRUCTOR **/
+void list_delete(List* l) {
+	Cell* head = l->head;
+	Cell* tmp;
+
+	if (head != NULL)
+	{
+		tmp = head;
+		head = head->next;
+		tmp->next = NULL;
+		free(tmp);
+	}
+	l->head = NULL;
+}
+
+/** ACCESSORS **/
+int list_length(List l) {
 	int length = 0;
 	Cell* cell = l.head;
 	
@@ -20,11 +37,11 @@ int getLength(List l) {
 	return length;
 }
 
-Cell* getHead(List l) {
+Cell* list_head(List l) {
 	return l.head;
 }
 
-Cell* getTail(List l) {
+Cell* list_tail(List l) {
 	if (l.head == NULL)
 		return NULL;
 	Cell* cell = l.head;
@@ -33,7 +50,7 @@ Cell* getTail(List l) {
 	return cell;
 }
 
-Cell * getCell(List l, int index) {
+Cell * list_getCell(List l, int index) {
 	Cell* cell = l.head;
 	int i;
 	
@@ -46,7 +63,7 @@ Cell * getCell(List l, int index) {
 	return cell;
 }
 
-int get(List l, int index) {
+int list_get(List l, int index) {
 	int i;
 	Cell* cell = l.head;
 	
@@ -59,8 +76,25 @@ int get(List l, int index) {
 	return cell->value;
 }
 
-void add(List* l, int value) {
-	Cell* tail = getTail(*l);
+bool list_contains(List l, int value) {
+	Cell* cell = l.head;
+	bool result = false;
+	
+	if (cell == NULL)
+		return false;
+	
+	while (cell != NULL && result == false)
+	{
+		result = (cell->value == value);
+		cell = cell->next;
+	}
+	
+	return result;
+}
+
+/** MUTATORS **/
+void list_add(List* l, int value) {
+	Cell* tail = list_tail(*l);
 	
 	if (tail != NULL)
 	{
@@ -77,7 +111,7 @@ void add(List* l, int value) {
 		l->head = tail;
 	}
 }
-bool addAt(List* l, int index, int value) {
+bool list_addAt(List* l, int index, int value) {
 	int i;
 	Cell* cell = l->head;
 	Cell* new = malloc(sizeof(Cell));
@@ -94,7 +128,7 @@ bool addAt(List* l, int index, int value) {
 	return true;
 }
 
-bool delete(List* l, int index) {
+bool list_remove(List* l, int index) {
 	int i;
 	Cell* cell1 = l->head;
 	Cell* cell2 = NULL;
@@ -123,12 +157,12 @@ bool delete(List* l, int index) {
 	return true;
 }
 
-bool reset(List* l) {
-	freeList(l);
-	initList(l);
+bool list_removeAll(List* l) {
+	list_delete(l);
+	list_new(l);
 }
 
-bool set(List* l, int index, int value) {
+bool list_set(List* l, int index, int value) {
 	int i;
 	Cell* cell = l->head;
 	
@@ -142,23 +176,8 @@ bool set(List* l, int index, int value) {
 	return true;
 }
 
-bool belongs(List l, int value) {
-	Cell* cell = l.head;
-	bool result = false;
-	
-	if (cell == NULL)
-		return false;
-	
-	while (cell != NULL && result == false)
-	{
-		result = (cell->value == value);
-		cell = cell->next;
-	}
-	
-	return result;
-}
-
-int* toArray(List l) {
+/** OTHERS **/
+int* listToArray(List l) {
 	int i;
 	Cell* cell = l.head;
 	int* array;
@@ -167,7 +186,7 @@ int* toArray(List l) {
 		array = NULL;
 	else
 	{
-		array = malloc(sizeof(int) * getLength(l));
+		array = malloc(sizeof(int) * list_length(l));
 		
 		for (i = 0 ; cell != NULL ; i++)
 		{
@@ -178,36 +197,36 @@ int* toArray(List l) {
 	return array;
 }
 
-void fromArray(List* l, int* array, int length) {
+void listFromArray(List* l, int* array, int length) {
 	int i;
 	
-	reset(l);
+	list_removeAll(l);
 	
 	for (i = 0 ; i < length ; i++)
-		add(l, array[i]);
+		list_add(l, array[i]);
 }
 
 // WARNING: Insertion Sort: There is probably a better way to sort a linked list
-void sort(List *l) {
-	int i, j, ind_min, length = getLength(*l), tmp;
+void list_sort(List *l) {
+	int i, j, ind_min, length = list_length(*l), tmp;
 	
 	for (i = 0 ; i < length-1 ; i++)
 	{
 		ind_min = i;
 		for (j = i+1 ; j < length ; j++)
-			if (get(*l, j) < get(*l, ind_min))
+			if (list_get(*l, j) < list_get(*l, ind_min))
 				ind_min = j;
 		
 		if (i != ind_min)
 		{
-			tmp = get(*l, ind_min);
-			set(l, ind_min, get(*l, i));
-			set(l, i, tmp);
+			tmp = list_get(*l, ind_min);
+			list_set(l, ind_min, list_get(*l, i));
+			list_set(l, i, tmp);
 		}
 	}
 }
 
-void printList(List l) {
+void list_print(List l) {
 	Cell* cell = l.head;
 	
 	if (l.head != NULL)
@@ -226,16 +245,3 @@ void printList(List l) {
 	}
 }
 
-void freeList(List* l) {
-	Cell* head = l->head;
-	Cell* tmp;
-
-	if (head != NULL)
-	{
-		tmp = head;
-		head = head->next;
-		tmp->next = NULL;
-		free(tmp);
-	}
-	l->head = NULL;
-}

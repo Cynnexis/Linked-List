@@ -22,22 +22,31 @@ typedef struct {
  * interfer with gcc.
  */
 
-extern void initList(List* l);
-extern int getLength(List l);
-extern Cell* getHead(List l);
-extern Cell* getTail(List l);
-extern Cell* getCell(List l, int index);
-extern int get(List l, int index);
-extern void add(List* l, int value);
-extern bool addAt(List* l, int index, int value);
-extern bool delete(List* l, int index);
-extern bool reset(List* l);
-extern bool set(List* l, int index, int value);
-extern bool belongs(List l, int value);
-extern int* toArray(List l);
-extern void fromArray(List* l, int* array, int n);
-extern void sort(List *l);
-extern void printList(List l);
-extern void freeList(List* l);
+/** CONSTRUCTOR **/
+extern void list_new(List* l);
+
+/** DESTRUCTOR **/
+extern void list_delete(List* l);
+
+/** ACCESSORS **/
+extern int list_length(List l);
+extern Cell* list_head(List l);
+extern Cell* list_tail(List l);
+extern Cell* list_getCell(List l, int index);
+extern int list_get(List l, int index);
+extern bool list_contains(List l, int value);
+
+/** MUTATORS **/
+extern void list_add(List* l, int value);
+extern bool list_addAt(List* l, int index, int value);
+extern bool list_remove(List* l, int index);
+extern bool list_removeAll(List* l);
+extern bool list_set(List* l, int index, int value);
+
+/** OTHERS **/
+extern int* listToArray(List l);
+extern void listFromArray(List* l, int* array, int n);
+extern void list_sort(List *l);
+extern void list_print(List l);
 
 #endif
