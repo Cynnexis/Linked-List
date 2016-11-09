@@ -60,4 +60,4 @@ cell->next = NULL;
 * `int* listToArray(List l)`: Renvoie l'adresse tableau associé à la liste `l`. Par exemple, si `l = <1, 9, 6, 5>`, on a `listToArray(l) = [1, 9, 6, 5]`. **Attention, cette fonction n'a pas été testée !!!**
 * `void listFromArray(List* l, int* array, int n)`: Fonction réciproque de `int* listToArray(List l)` : crée une liste `l` à partir d'une adresse de tableau `l`. L'argument `n` est la taille du tableau donnée en argument. **Attention, cette fonction n'a pas été testée !!!**
 * `void list_sort(List *l)`: Tri la liste `l` en ordre croissant. Si la liste est vide, cette fonction ne fait rien.
-* `void list_print(List l)`: Affiche la liste `l` dans la sortir standard (_`stdout`_) sous le format `[%s, %s, %s, ..., %s]` (avec `%s` étant les valeur de la liste `l` de `0` à `list_length(l)-1`.
+* `void list_print(List l)`: Affiche la liste `l` dans la sortir standard (_`stdout`_) sous le format `[%i, %i, %i, ..., %i]` (avec `%i` étant les valeurs de la liste `l` de `0` à `list_length(l)-1`).
