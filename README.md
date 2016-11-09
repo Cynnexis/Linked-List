@@ -28,6 +28,9 @@ Le `Makefile` est fait pour compiler sous Linux (comme sur Turing par exemple). 
 --------------------------------------------------------------------------------
 
 ## Liste des fonctions dans la bibliothèque list ##
+### Note sur les pointeurs ###
+__**Attention:**__ Dans le cas ou l'utilisateur manipule un pointeur de list (`List*`), il faut faire très attention à ce que le pointeur **ne soit pas égale à `NULL`** lors de l'utilisation des fonctions çi-dessous. En effet, toutes ces fonctions prennant comme entré un pointeur de liste (tel que `list_new`, `list_add`, etc...), un `assert` verifiera que la liste passée en argument est bien différent de `NULL`. En d'autre terme, si vous entrez un pointeur nul dans l'une de ces fonctions, votre programme s'arrêtera et une exception sera levée.
+
 ### Constructeur ###
 * `void list_new(List* l)`: Initialise la tête à `NULL`.
 

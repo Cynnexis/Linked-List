@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #include "boolean.h"
 #include "list.h"
 
 /** CONSTRUCTOR **/
 void list_new(List* l) {
+	assert(l != NULL);
 	l->head = NULL;
 }
 
 /** DESTRUCTOR **/
 void list_delete(List* l) {
+	assert(l != NULL);
 	Cell* head = l->head;
 	Cell* tmp;
 
@@ -35,6 +38,10 @@ int list_length(List l) {
 		cell = cell->next;
 	}
 	return length;
+}
+
+bool list_isEmpty(List l) {
+	return l.head == NULL;
 }
 
 Cell* list_head(List l) {
@@ -94,6 +101,7 @@ bool list_contains(List l, int value) {
 
 /** MUTATORS **/
 void list_add(List* l, int value) {
+	assert(l != NULL);
 	Cell* tail = list_tail(*l);
 	
 	if (tail != NULL)
@@ -113,6 +121,7 @@ void list_add(List* l, int value) {
 }
 bool list_addAt(List* l, int index, int value) {
 	int i;
+	assert(l != NULL);
 	Cell* cell = l->head;
 	Cell* new = malloc(sizeof(Cell));
 	new->value = value;
@@ -130,6 +139,7 @@ bool list_addAt(List* l, int index, int value) {
 
 bool list_remove(List* l, int index) {
 	int i;
+	assert(l != NULL);
 	Cell* cell1 = l->head;
 	Cell* cell2 = NULL;
 	
@@ -139,6 +149,7 @@ bool list_remove(List* l, int index) {
 	if (index == 0)
 	{
 		l->head = l->head->next;
+		free(cell1);
 		return true;
 	}
 	
@@ -151,19 +162,21 @@ bool list_remove(List* l, int index) {
 	if (cell1 == NULL)
 		return false;
 	
-	
 	cell2->next = cell1->next;
+	free(cell1);
 	
 	return true;
 }
 
 bool list_removeAll(List* l) {
+	assert(l != NULL);
 	list_delete(l);
 	list_new(l);
 }
 
 bool list_set(List* l, int index, int value) {
 	int i;
+	assert(l != NULL);
 	Cell* cell = l->head;
 	
 	for (i = 0 ; i < index && cell != NULL ; i++)
@@ -199,6 +212,7 @@ int* listToArray(List l) {
 
 void listFromArray(List* l, int* array, int length) {
 	int i;
+	assert(l != NULL);
 	
 	list_removeAll(l);
 	
@@ -208,6 +222,7 @@ void listFromArray(List* l, int* array, int length) {
 
 // WARNING: Insertion Sort: There is probably a better way to sort a linked list
 void list_sort(List *l) {
+	assert(l != NULL);
 	int i, j, ind_min, length = list_length(*l), tmp;
 	
 	for (i = 0 ; i < length-1 ; i++)

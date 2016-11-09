@@ -29,12 +29,13 @@ extern void list_new(List* l);
 extern void list_delete(List* l);
 
 /** ACCESSORS **/
-extern int list_length(List l);
+extern int   list_length(List l);
+extern bool  list_isEmpty(List l);
 extern Cell* list_head(List l);
 extern Cell* list_tail(List l);
 extern Cell* list_getCell(List l, int index);
-extern int list_get(List l, int index);
-extern bool list_contains(List l, int value);
+extern int   list_get(List l, int index);
+extern bool  list_contains(List l, int value);
 
 /** MUTATORS **/
 extern void list_add(List* l, int value);
